@@ -18,7 +18,6 @@ class PostsContainer extends Component {
       this.setState ({
         posts: res.data
       })
-      // console.log(this.state.posts);
     })
   }
 
@@ -44,7 +43,6 @@ class PostsContainer extends Component {
 
   createNewPost(post) {
     TextPostModel.create(post).then( (res) => {
-      // console.log(res);
       this.setState(prevState => {
         prevState.posts.push(res.data);
         return prevState

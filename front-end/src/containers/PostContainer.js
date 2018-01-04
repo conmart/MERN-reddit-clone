@@ -5,6 +5,7 @@ import CommentModel from '../Models/Comment';
 import Comment from '../components/comment/Comment';
 import Voting from '../components/Voting';
 import CreateCommentForm from '../components/comment/CreateCommentForm';
+import { Link } from 'react-router-dom';
 
 class PostContainer extends Component {
 
@@ -19,9 +20,7 @@ class PostContainer extends Component {
 
   fetchComments(){
     CommentModel.all(this.state.post._id).then(res => {
-      // console.log(res);
       let allComments = res.data;
-      // console.log("comments", allComments);
       this.setState({
         comments: allComments
       })
@@ -40,9 +39,7 @@ class PostContainer extends Component {
   }
 
   createComment(comment){
-    // console.log('from PostContainer', comment);
     CommentModel.create(this.state.post._id, comment).then(res => {
-      // console.log(res);
       this.setState(prevState => {
         prevState.comments.push(res.data);
         return prevState
@@ -67,7 +64,6 @@ class PostContainer extends Component {
     })
   }
 
-  //added later
   onVotePost(post, voteDirection){
     let newVotes = post.votes + voteDirection
     TextPostModel.update(post._id, newVotes).then( (res) => {
@@ -80,7 +76,6 @@ class PostContainer extends Component {
 
   render(){
     let post = this.state.post;
-    // console.log("Post", post);
     return(
       <div>
         <TextPost
@@ -106,7 +101,9 @@ class PostContainer extends Component {
 
             </div>
         })}
-
+        <Link to={'/'} className="back-btn">
+          <p>Back to all posts</p>
+        </Link>
       </div>
     )
   }
